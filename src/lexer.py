@@ -58,150 +58,317 @@ tokens = (
     'VAR',
     'WHILE',
     'XOR'
+
+    # OPERATORS
+    'PLUS',
+    'MINUS',
+    'TIMES',
+    'DIVIDE',
+    'DIVIDE_INT',
+    'MODULO',
+    'EQUAL',
+    'NEQUAL',
+    'LT',
+    'GT',
+    'LE',
+    'GE',
+    'ASSIGN',
+
+    # DELIMITERS
+    'LPAREN',
+    'RPAREN',
+    'LBRACKET',
+    'RBRACKET',
+    'SEMICOLON',
+    'COMMA',
+    'COLON',
+    'DOT',
+    'DOTDOT',
+
+    # OTHERS
+    'ID',
+    'INTEGER_CONST',
+    'REAL_CONST',
+    'STRING_LITERAL',
+
+
 )
 
-# Regular expressions rules for a simple tokens 
+# Regular expressions rules for a simple tokens
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_TIMES = r'\*'
+t_DIVIDE = r'/'
+t_DIVIDE_INT = r'div'
+t_MODULO = r'mod'
+t_EQUAL = r'='
+t_NEQUAL = r'<>'
+t_LT = r'<'
+t_GT = r'>'
+t_LE = r'<='
+t_GE = r'>='
+t_ASSIGN = r':='
+
+# Delimiters
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+t_SEMICOLON = r';'
+t_COMMA = r','
+t_COLON = r':'
+t_DOT = r'\.'
+t_DOTDOT = r'\.\.'
 
 
-def t_AUTO(t):
-    r'auto'
+# Regular expression rules for complex tokens
+
+def t_ABSOLUTE(t):
+    r'absolute'
     return t
 
-def t_BREAK(t):
-    r'break'
+def t_ARRAY(t):
+    r'array'
     return t
 
-def t_CASE(t):
-    r'case'
+def t_BEGIN(t):
+    r'begin'
     return t
 
-def t_CHAR(t):
-    r'char'
+def t_CONST(t):
+    r'const'
     return t
 
-def t_BOOLEAN(t):
-    r'boolean'
+def t_DESTRUCTOR(t):    
+    r'destructor'
     return t
 
-def t_INCLUDE(t):
-    r'include'
+def t_DIV(t):
+    r'div'
     return t
 
-
-def t_DEFINE(t):
-    r'define'
+def t_DOWNTO(t):
+    r'downto'
     return t
 
-def t_CONTINUE(t):
-    r'continue'
-    return t
-
-def t_DEFAULT(t):
-    r'default'
-    return t
-
-def t_DO(t):
-    r'do'
-    return t
-
-def t_DOUBLE(t):
-    r'double'
-    return t
-
-def t_ELSE(t):
-    r'else'
-    return t
-
-def t_FLOAT(t):
-    r'float'
+def t_END(t):
+    r'end'
     return t
 
 def t_FOR(t):
     r'for'
     return t
 
+def t_FUNCTION(t):
+    r'function'
+    return t
+
 def t_IF(t):
     r'if'
     return t
 
-def t_INT(t):
-	r'int'
-	return t
-
-def t_SHORT(t):
-    r'short'
+def t_IN(t):
+    r'in'
     return t
 
-def t_LONG(t):
-    r'long'
+def t_INTERFACE(t):
+    r'interface'
     return t
 
-def t_RETURN(t):
-	r'return'
-	return t
+def t_LABEL(t):
+    r'label'
+    return t
 
-def t_SWITCH(t):
-        r'switch'
-        return t
+def t_NIL(t):
+    r'nil'
+    return t
 
-def t_VOID(t):
-	r'void'
-	return t
-	
+def t_OBJECT(t):
+    r'object'
+    return t    
+
+def t_OR(t):
+    r'or'
+    return t
+
+def t_PRIVATE(t):
+    r'private'
+    return t
+
+def t_PROGRAM(t):
+    r'program'
+    return t
+
+def t_REPEAT(t):
+    r'repeat'
+    return t
+
+def t_SHL(t):
+    r'shl'
+    return t
+
+def t_STRING(t):
+    r'string'
+    return t
+
+def t_TO(t):
+    r'to'
+    return t
+
+def t_UNIT(t):
+    r'unit'
+    return t
+
+def t_USES(t):
+    r'uses'
+    return t
+
+def t_VIRTUAL(t):
+    r'virtual'
+    return t
+
+def t_WITH(t):
+    r'with'
+    return t
+
+def t_AND(t):
+    r'and'
+    return t
+
+def t_ASM(t):
+    r'asm'
+    return t
+
+def t_CASE(t):
+    r'case'
+    return t    
+
+def t_CONSTRUCTOR(t):
+    r'constructor'
+    return t
+
+def t_EXTERNAL(t):
+    r'external'
+    return t
+
+def t_DO(t):
+    r'do'
+    return t
+
+def t_ELSE(t):
+    r'else'
+    return t
+
+def t_FILE(t):
+    r'file'
+    return t
+
+def t_FORWARD(t):
+    r'forward'
+    return t
+
+def t_GOTO(t):
+    r'goto'
+    return t
+
+def t_IMPLEMENTATION(t):
+    r'implementation'
+    return t
+
+def t_INLINE(t):
+    r'inline'
+    return t
+
+def t_INTERRUPT(t):
+    r'interrupt'
+    return t
+
+def t_MOD(t):
+    r'mod'
+    return t
+
+def t_NOT(t):
+    r'not'
+    return t
+
+def t_OFF(t):
+    r'off'
+    return t
+
+def t_PACKED(t):
+    r'packed'
+    return t
+
+def t_PROCEDURE(t):
+    r'procedure'
+    return t
+
+def t_RECORD(t):
+    r'record'
+    return t
+
+def t_SET(t):
+    r'set'
+    return t
+
+def t_SHR(t):
+    r'shr'
+    return t
+
+def t_THEN(t):
+    r'then'
+    return t
+
+def t_TYPE(t):
+    r'type'
+    return t
+
+def t_UNTIL(t):
+    r'until'
+    return t
+
+def t_VAR(t):
+    r'var'
+    return t
+
 def t_WHILE(t):
-	r'while'
-	return t
+    r'while'
+    return t
 
-def t_NUMBER(t):
-    r'\d+(\.\d+)?'
+def t_XOR(t):
+    r'xor'
+    return t
+
+def t_REAL_CONST(t):
+    r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
-def t_ID(t):
-    r'\w+(_\d\w)*'
+def t_INTEGER_CONST(t):
+    r'\d+'
+    t.value = int(t.value)
     return t
 
-def t_LESSEQUAL(t):
-	r'<='
-	return t
-
-def t_GREATEREQUAL(t):
-	r'>='
-	return t
-
-def t_DEQUAL(t):
-	r'!='
-	return t
-
-def t_ISEQUAL(t):
-	r'=='
-	return t
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
     
-def t_MINUSMINUS(t):
-	r'--'
-	return t
 
-def t_PLUSPLUS(t):
-	r'\+\+'
-	return t
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
 
-t_ignore = ' \t'
+def t_REAL_CONST(t):
+	# Real numbers
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
 
-def t_comments(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
+def t_INTEGER_CONST(t):
+	# Integer numbers
+    r'\d+'
+    t.value = int(t.value)
+    return t
 
-def t_comments_C99(t):
-    r'//(.)*?\n'
-    t.lexer.lineno += 1
 
-def t_error(t):
-    print ("Lexical error: " + str(t.value[0]))
-    t.lexer.skip(1)
     
 def test(data, lexer):
 	lexer.input(data)
