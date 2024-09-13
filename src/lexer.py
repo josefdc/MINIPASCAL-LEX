@@ -322,7 +322,7 @@ if __name__ == '__main__':
         fin = sys.argv[1]
     else:
         
-        fin = 'examples/example1.pas'
+        fin = 'examples/example2.pas'
     try:
         with open(fin, 'r') as f:
             data = f.read()
