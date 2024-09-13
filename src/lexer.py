@@ -6,7 +6,7 @@ tokens = (
     # Reserverd words
     'ABSOLUTE',
     'ARRAY',
-    'BEGIN,
+    'BEGIN',
     'CONST',
     'DESTRUCTOR',
     'DIV',
@@ -58,30 +58,10 @@ tokens = (
     'VAR',
     'WHILE',
     'XOR'
-
 )
 
 # Regular expressions rules for a simple tokens 
-t_PLUS   = r'\+'
-t_MINUS  = r'-'
-t_TIMES  = r'\*'
-t_DIVIDE = r'/'
-t_EQUAL  = r'='
-t_DISTINT = r'!'
-t_LESS   = r'<'
-t_GREATER = r'>'
-t_SEMICOLON = ';'
-t_COMMA  = r','
-t_LPAREN = r'\('
-t_RPAREN  = r'\)'
-t_LBRACKET = r'\['
-t_RBRACKET = r'\]'
-t_LBLOCK   = r'{'
-t_RBLOCK   = r'}'
-t_COLON   = r':'
-t_AMPERSANT = r'\&'
-t_HASHTAG = r'\#'
-t_DOT = r'\.'
+
 
 def t_AUTO(t):
     r'auto'
