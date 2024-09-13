@@ -1,106 +1,32 @@
 import ply.lex as lex
 import sys
 
-# lista de tokens
+# Lista de tokens
 tokens = (
-    # Reserverd words
-    'ABSOLUTE',
-    'ARRAY',
-    'BEGIN',
-    'CONST',
-    'DESTRUCTOR',
-    'DIV',
-    'DOWNTO',
-    'END',
-    'FOR',
-    'FUNCTION',
-    'IF',
-    'IN',
-    'INTERFACE',
-    'LABEL',
-    'NIL',
-    'OBJECT',
-    'OR',
-    'PRIVATE',
-    'PROGRAM',
-    'REPEAT',
-    'SHL',
-    'STRING',
-    'TO',
-    'UNIT',
-    'USES',
-    'VIRTUAL',
-    'WITH',
-    'AND',
-    'ASM',
-    'CASE',
-    'CONSTRUCTOR',
-    'EXTERNAL',
-    'DO',
-    'ELSE',
-    'FILE',
-    'FORWARD',
-    'GOTO',
-    'IMPLEMENTATION',
-    'INLINE',
-    'INTERRUPT',
-    'MOD',
-    'NOT',
-    'OFF',
-    'PACKED',
-    'PROCEDURE',
-    'RECORD',
-    'SET',
-    'SHR',
-    'THEN',
-    'TYPE',
-    'UNTIL',
-    'VAR',
-    'WHILE',
-    'XOR'
+    # Reserved words
+    'ABSOLUTE', 'ARRAY', 'BEGIN', 'CONST', 'DESTRUCTOR', 'DOWNTO', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 'INTERFACE',
+    'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
+    'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
+    'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
+    'WHILE', 'XOR',
 
-    # OPERATORS
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',
-    'DIVIDE_INT',
-    'MODULO',
-    'EQUAL',
-    'NEQUAL',
-    'LT',
-    'GT',
-    'LE',
-    'GE',
-    'ASSIGN',
+    # Operators
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
 
-    # DELIMITERS
-    'LPAREN',
-    'RPAREN',
-    'LBRACKET',
-    'RBRACKET',
-    'SEMICOLON',
-    'COMMA',
-    'COLON',
-    'DOT',
-    'DOTDOT',
+    # Delimiters
+    'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'SEMICOLON', 'COMMA', 'COLON', 'DOT', 'DOTDOT',
 
-    # OTHERS
-    'ID',
-    'INTEGER_CONST',
-    'REAL_CONST',
-    'STRING_LITERAL',
-
-
+    # Others   
+    'ID', 'INTEGER_CONST', 'REAL_CONST', 'STRING_LITERAL',
 )
 
-# Regular expressions rules for a simple tokens
+# Reglas de expresiones regulares para tokens simples (Operadores)
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
-t_DIVIDE_INT = r'div'
-t_MODULO = r'mod'
+t_DIVIDE_INT = r'div'  # Token para "div" (división entera)
+t_MODULO = r'mod'      # Token para "mod" (operador módulo)
 t_EQUAL = r'='
 t_NEQUAL = r'<>'
 t_LT = r'<'
@@ -120,9 +46,7 @@ t_COLON = r':'
 t_DOT = r'\.'
 t_DOTDOT = r'\.\.'
 
-
-# Regular expression rules for complex tokens
-
+# Palabras reservadas (definidas explícitamente)
 def t_ABSOLUTE(t):
     r'absolute'
     return t
@@ -141,10 +65,6 @@ def t_CONST(t):
 
 def t_DESTRUCTOR(t):    
     r'destructor'
-    return t
-
-def t_DIV(t):
-    r'div'
     return t
 
 def t_DOWNTO(t):
@@ -283,10 +203,6 @@ def t_INTERRUPT(t):
     r'interrupt'
     return t
 
-def t_MOD(t):
-    r'mod'
-    return t
-
 def t_NOT(t):
     r'not'
     return t
@@ -339,6 +255,7 @@ def t_XOR(t):
     r'xor'
     return t
 
+# Números
 def t_REAL_CONST(t):
     r'\d+\.\d+'
     t.value = float(t.value)
@@ -349,47 +266,69 @@ def t_INTEGER_CONST(t):
     t.value = int(t.value)
     return t
 
+# Identificadores
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
+    # Verificar si el identificador es una palabra reservada
+    if t.value.upper() in tokens:  # Convierte a mayúsculas y verifica en los tokens
+        t.type = t.value.upper()
     return t
+
+# Literales de cadena
+def t_STRING_LITERAL(t):
+    r'\'([^\\\n]|(\\.))*?\''
+    t.value = t.value[1:-1]  # Remueve las comillas
+    return t
+
+# Comentarios { ... }
+def t_COMMENT(t):
+    r'\{[^}]*\}'
+    pass
+
+# Comentarios (* ... *)
+def t_COMMENT_MULTILINE(t):  # Cambiado de T a t (minúscula)
+    r'\(\*(.|\n)*?\*\)'
+    pass
+
+# Nueva línea
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
     
+# Espacios y tabulaciones que se ignoran
+t_ignore = ' \t'
 
-
-
-def t_REAL_CONST(t):
-	# Real numbers
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
-
-def t_INTEGER_CONST(t):
-	# Integer numbers
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-
+# Manejo de errores léxicos
+def t_error(t):
+    print(f"Illegal character '{t.value[0]}' at line {t.lexer.lineno}")
+    t.lexer.skip(1)
     
 def test(data, lexer):
-	lexer.input(data)
-	while True:
-		tok = lexer.token()
-		if not tok:
-			break
-		print (tok)
+    lexer.input(data)
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        print(tok)
+
+import ply.lex as lex
+import sys
+
+# [Se omite el código anterior para simplificar]
 
 lexer = lex.lex()
 
- 
 if __name__ == '__main__':
-	if (len(sys.argv) > 1):
-		fin = sys.argv[1]
-	else:
-		fin = 'test.pas'
-	f = open(fin, 'r')
-	data = f.read()
-	print (data)
-	lexer.input(data)
-	test(data, lexer)
-	#input()
-
+    if len(sys.argv) > 1:
+        fin = sys.argv[1]
+    else:
+        # Modifica esta línea para apuntar al archivo en la carpeta "examples"
+        fin = 'examples/example1.pas'  # Ruta correcta al archivo de ejemplo
+    try:
+        with open(fin, 'r') as f:
+            data = f.read()
+            print(data)
+            lexer.input(data)
+            test(data, lexer)
+    except FileNotFoundError:
+        print(f"Error: El archivo '{fin}' no existe.")
