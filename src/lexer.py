@@ -8,7 +8,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR',
+    'WHILE', 'XOR', 'INTEGER', 
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
@@ -255,6 +255,10 @@ def t_XOR(t):
     r'xor'
     return t
 
+def t_INTEGER(t):  
+    r'integer'
+    return t
+
 # Números
 def t_REAL_CONST(t):
     r'\d+\.\d+'
@@ -311,19 +315,14 @@ def test(data, lexer):
             break
         print(tok)
 
-import ply.lex as lex
-import sys
-
-# [Se omite el código anterior para simplificar]
-
 lexer = lex.lex()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    if (len(sys.argv) > 1):
         fin = sys.argv[1]
     else:
-        # Modifica esta línea para apuntar al archivo en la carpeta "examples"
-        fin = 'examples/example1.pas'  # Ruta correcta al archivo de ejemplo
+        
+        fin = 'examples/example1.pas'
     try:
         with open(fin, 'r') as f:
             data = f.read()
