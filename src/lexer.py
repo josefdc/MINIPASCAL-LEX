@@ -334,7 +334,7 @@ def t_INTEGER_CONST(t):
 # Identificadores
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value.lower(), 'ID') # Se verifica si es una palabra reservada
+    t.type = reserved.get(t.value.lower(), 'ID') # Se verifica si es una palabra reservada dentro del diccionario
     return t
 
 # Literales de cadena
