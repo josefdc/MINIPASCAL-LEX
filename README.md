@@ -18,12 +18,12 @@ La respuesta está en una simple palabra, **precisión**. Describir algo en part
 
 ### ¿Qué es lo que pasa dentro de un analizador léxico?
 Se debe saber que el analizador divide la entrada en partes y este debe saber cuando las partes son un componente en conjunto o vienen totalmente separadas de algún contexto en específico, esto lo hace por medio de identificadores o palabras clave (tambien llamadas tokens). Existen distintas categorias de tokens:
-    - Palabras claves
-    - Identificadores
-    - Operadores
-    - Constantes numéricas
-    - Constantes de carácter o cadena
-    - Símbolos especiales
+- Palabras claves
+- Identificadores
+- Operadores
+- Constantes numéricas
+- Constantes de carácter o cadena
+- Símbolos especiales
 
 ### ¿Por qué Pascal?
 Pascal a día de hoy sigue siendo uno de los lenguajes más claros en el uso del lenguaje, con un tipado fuerte y estático, lo que significa que los errores relacionados con el tipo de datos se detectan en tiempo de compilación, relacionado a esto último, resulta ser un lenguaje eficiente en lo que a tiempos de ejecución se refiere y con una buena modularidad. Todas estas caracteristicas lo hacen el candidato perfecto para el área académica.
