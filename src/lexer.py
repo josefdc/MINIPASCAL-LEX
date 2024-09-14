@@ -3,82 +3,21 @@ import sys
 
 # Lista de tokens
 tokens = (
-<<<<<<< HEAD
-    # Reserverd words
-    'ABSOLUTE',
-    'ARRAY',
-    'BEGIN',
-    'CONST',
-    'DESTRUCTOR',
-    'DIV',
-    'DOWNTO',
-    'END',
-    'FOR',
-    'FUNCTION',
-    'IF',
-    'IN',
-    'INTERFACE',
-    'LABEL',
-    'NIL',
-    'OBJECT',
-    'OR',
-    'PRIVATE',
-    'PROGRAM',
-    'REPEAT',
-    'SHL',
-    'STRING',
-    'TO',
-    'UNIT',
-    'USES',
-    'VIRTUAL',
-    'WITH',
-    'AND',
-    'ASM',
-    'CASE',
-    'CONSTRUCTOR',
-    'EXTERNAL',
-    'DO',
-    'ELSE',
-    'FILE',
-    'FORWARD',
-    'GOTO',
-    'IMPLEMENTATION',
-    'INLINE',
-    'INTERRUPT',
-    'MOD',
-    'NOT',
-    'OFF',
-    'PACKED',
-    'PROCEDURE',
-    'RECORD',
-    'SET',
-    'SHR',
-    'THEN',
-    'TYPE',
-    'UNTIL',
-    'VAR',
-    'WHILE',
-    'XOR',
-=======
     # Reserved words
     'ABSOLUTE', 'ARRAY', 'BEGIN', 'CONST', 'DESTRUCTOR', 'DOWNTO', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 'INTERFACE',
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
     'WHILE', 'XOR', 'INTEGER', 
->>>>>>> main_branch
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
 
-<<<<<<< HEAD
-=======
     # Delimiters
     'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'SEMICOLON', 'COMMA', 'COLON', 'DOT', 'DOTDOT',
 
     # Others   
     'ID', 'INTEGER_CONST', 'REAL_CONST', 'STRING_LITERAL',
->>>>>>> main_branch
 )
 
 # Reglas de expresiones regulares para tokens simples (Operadores)
@@ -107,12 +46,8 @@ t_COLON = r':'
 t_DOT = r'\.'
 t_DOTDOT = r'\.\.'
 
-<<<<<<< HEAD
 # Regular expression rules for complex tokens
 
-=======
-# Palabras reservadas (definidas explícitamente)
->>>>>>> main_branch
 def t_ABSOLUTE(t):
     r'absolute'
     return t
@@ -327,42 +262,15 @@ def t_INTEGER(t):
 
 # Números
 def t_REAL_CONST(t):
-<<<<<<< HEAD
-	# Real numbers
-=======
->>>>>>> main_branch
     r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
 def t_INTEGER_CONST(t):
-<<<<<<< HEAD
-	# Integer numbers
-=======
->>>>>>> main_branch
     r'\d+'
     t.value = int(t.value)
     return t
 
-<<<<<<< HEAD
-def t_STRING_LITERAL(t):
-    r'\".*?\"'
-    return t
-
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    return t
-
-# Ignored characters
-t_ignore = " \t"
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
-
-def t_error(t):
-    print ("Illegal character '%s'" % t.value[0])
-=======
 # Identificadores
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -398,7 +306,6 @@ t_ignore = ' \t'
 # Manejo de errores léxicos
 def t_error(t):
     print(f"Illegal character '{t.value[0]}' at line {t.lexer.lineno}")
->>>>>>> main_branch
     t.lexer.skip(1)
     
 
@@ -413,17 +320,6 @@ def test(data, lexer):
 lexer = lex.lex()
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-	if (len(sys.argv) > 1):
-		fin = sys.argv[1]
-	else:
-		fin = 'examples/example1.pas'
-	f = open(fin, 'r')
-	data = f.read()
-	print (data)
-	lexer.input(data)
-	test(data, lexer)
-=======
     if (len(sys.argv) > 1):
         fin = sys.argv[1]
     else:
@@ -437,4 +333,3 @@ if __name__ == '__main__':
             test(data, lexer)
     except FileNotFoundError:
         print(f"Error: El archivo '{fin}' no existe.")
->>>>>>> main_branch
