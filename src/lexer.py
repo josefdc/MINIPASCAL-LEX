@@ -1,6 +1,64 @@
 import ply.lex as lex
 import sys
 
+# Diccionario de palabras reservadas para evitar conflictos con identificadores
+
+reserved = {
+    'absolute': 'ABSOLUTE',
+    'array': 'ARRAY',
+    'begin': 'BEGIN',
+    'const': 'CONST',
+    'destructor': 'DESTRUCTOR',
+    'downto': 'DOWNTO',
+    'end': 'END',
+    'for': 'FOR',
+    'function': 'FUNCTION',
+    'if': 'IF',
+    'in': 'IN',
+    'interface': 'INTERFACE',
+    'label': 'LABEL',
+    'nil': 'NIL',
+    'object': 'OBJECT',
+    'or': 'OR',
+    'private': 'PRIVATE',
+    'program': 'PROGRAM',
+    'repeat': 'REPEAT',
+    'shl': 'SHL',
+    'string': 'STRING',
+    'to': 'TO',
+    'unit': 'UNIT',
+    'uses': 'USES',
+    'virtual': 'VIRTUAL',
+    'with': 'WITH',
+    'and': 'AND',
+    'asm': 'ASM',
+    'case': 'CASE',
+    'constructor': 'CONSTRUCTOR',
+    'external': 'EXTERNAL',
+    'do': 'DO',
+    'else': 'ELSE',
+    'file': 'FILE',
+    'forward': 'FORWARD',
+    'goto': 'GOTO',
+    'implementation': 'IMPLEMENTATION',
+    'inline': 'INLINE',
+    'interrupt': 'INTERRUPT',
+    'not': 'NOT',
+    'off': 'OFF',
+    'packed': 'PACKED',
+    'procedure': 'PROCEDURE',
+    'record': 'RECORD',
+    'set': 'SET',
+    'shr': 'SHR',
+    'then': 'THEN',
+    'type': 'TYPE',
+    'until': 'UNTIL',
+    'var': 'VAR',
+    'while': 'WHILE',
+    'xor': 'XOR',
+    'integer': 'INTEGER',
+}
+
 # Lista de tokens
 tokens = (
     # Reserved words
@@ -88,8 +146,14 @@ def t_IF(t):
     r'if'
     return t
 
+def t_INTEGER(t):  
+    r'integer'
+    t.type = 'INTEGER'
+    return t
+
 def t_IN(t):
-    r'in'
+    r'\bin\b'
+    t.type = 'IN'
     return t
 
 def t_INTERFACE(t):
@@ -256,10 +320,6 @@ def t_XOR(t):
     r'xor'
     return t
 
-def t_INTEGER(t):  
-    r'integer'
-    return t
-
 # Números
 def t_REAL_CONST(t):
     r'\d+\.\d+'
@@ -274,9 +334,7 @@ def t_INTEGER_CONST(t):
 # Identificadores
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    # Verificar si el identificador es una palabra reservada
-    if t.value.upper() in tokens:  # Convierte a mayúsculas y verifica en los tokens
-        t.type = t.value.upper()
+    t.type = reserved.get(t.value.lower(), 'ID') # Se verifica si es una palabra reservada
     return t
 
 # Literales de cadena
