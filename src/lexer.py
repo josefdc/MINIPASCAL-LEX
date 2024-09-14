@@ -57,7 +57,7 @@ tokens = (
     'UNTIL',
     'VAR',
     'WHILE',
-    'XOR'
+    'XOR',
 
     # OPERATORS
     'PLUS',
@@ -91,7 +91,6 @@ tokens = (
     'REAL_CONST',
     'STRING_LITERAL',
 
-
 )
 
 # Regular expressions rules for a simple tokens
@@ -119,7 +118,6 @@ t_COMMA = r','
 t_COLON = r':'
 t_DOT = r'\.'
 t_DOTDOT = r'\.\.'
-
 
 # Regular expression rules for complex tokens
 
@@ -340,23 +338,6 @@ def t_XOR(t):
     return t
 
 def t_REAL_CONST(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
-
-def t_INTEGER_CONST(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    return t
-    
-
-
-
-def t_REAL_CONST(t):
 	# Real numbers
     r'\d+\.\d+'
     t.value = float(t.value)
@@ -368,8 +349,26 @@ def t_INTEGER_CONST(t):
     t.value = int(t.value)
     return t
 
+def t_STRING_LITERAL(t):
+    r'\".*?\"'
+    return t
 
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
+
+# Ignored characters
+t_ignore = " \t"
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+def t_error(t):
+    print ("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
     
+
 def test(data, lexer):
 	lexer.input(data)
 	while True:
@@ -385,11 +384,9 @@ if __name__ == '__main__':
 	if (len(sys.argv) > 1):
 		fin = sys.argv[1]
 	else:
-		fin = 'test.pas'
+		fin = 'examples/example1.pas'
 	f = open(fin, 'r')
 	data = f.read()
 	print (data)
 	lexer.input(data)
 	test(data, lexer)
-	#input()
-
