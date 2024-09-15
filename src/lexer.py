@@ -2,7 +2,6 @@ import ply.lex as lex
 import sys
 
 # Diccionario de palabras reservadas para evitar conflictos con identificadores
-
 reserved = {
     'absolute': 'ABSOLUTE',
     'array': 'ARRAY',
@@ -57,6 +56,10 @@ reserved = {
     'while': 'WHILE',
     'xor': 'XOR',
     'integer': 'INTEGER',
+    'div': 'DIV',
+    'mod': 'MOD',
+    'of' : 'OF',
+    'real': 'REAL', 
 }
 
 # Lista de tokens
@@ -66,7 +69,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 
+    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'OF', 'REAL',
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
@@ -83,8 +86,6 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
-t_DIVIDE_INT = r'div'  # Token para "div" (división entera)
-t_MODULO = r'mod'      # Token para "mod" (operador módulo)
 t_EQUAL = r'='
 t_NEQUAL = r'<>'
 t_LT = r'<'
