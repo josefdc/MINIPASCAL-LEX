@@ -3,10 +3,15 @@
 Este repositorio contiene la documentación para un analizador léxico de Mini Pascal utilizando PLY (Python Lex-Yacc). El proyecto es colaborativo y sigue una estructura organizada para asegurar un desarrollo eficiente y de alta calidad.
 
 ## Tabla de Contenidos
-1. [Introducción](#introducción)
-2. [Propósito del Analizador Léxico](#propósito-del-analizador-léxico)
-3. [Instrucciones de instalación y ejecución](#instrucciones-de-instalación-y-ejecución)
-4. [Bibliografía](#bibliografía)
+- [Documentación Analizador Léxico para Mini Pascal usando PLY](#documentación-analizador-léxico-para-mini-pascal-usando-ply)
+  - [Tabla de Contenidos](#tabla-de-contenidos)
+  - [Introducción](#introducción)
+    - [¿Qué es un analizador léxico?](#qué-es-un-analizador-léxico)
+    - [¿Qué es lo que pasa dentro de un analizador léxico?](#qué-es-lo-que-pasa-dentro-de-un-analizador-léxico)
+    - [¿Por qué Pascal?](#por-qué-pascal)
+  - [Propósito del Analizador Léxico](#propósito-del-analizador-léxico)
+  - [Instrucciones de instalación y ejecución](#instrucciones-de-instalación-y-ejecución)
+  - [Bibliografía](#bibliografía)
 
 ## Introducción
 El proyecto vigente trata sobre un analizador léxico para mini Pascal usando PLY para la materia "compiladores" con el profesor Cesar Jaramillo, esto con el ideal de aplicar lo visto en la materia vigente y la materia "gramatica y lenguajes formales".
@@ -34,4 +39,4 @@ El propósito no es más que el acádemico, poner en práctica los temas vistos 
 ## Instrucciones de instalación y ejecución
 
 ## Bibliografía
-[1]: https://www.researchgate.net/profile/Juan-Vazquez-3/publication/302941976_Ensenanzas_de_la_Implementacion_de_un_Analizador_Lexico/links/5733db5308ae9f741b261a57/Ensenanzas-de-la-Implementacion-de-un-Analizador-Lexico.pdf (Enseñanzas de la Implementación de un Analizador Léxico)
+[1] Juan Vázquez. *Enseñanzas de la Implementación de un Analizador Léxico*. Disponible en: [https://www.researchgate.net/...](https://www.researchgate.net/profile/Juan-Vazquez-3/publication/302941976_Ensenanzas_de_la_Implementacion_de_un_Analizador_Lexico/links/5733db5308ae9f741b261a57/Ensenanzas-de-la-Implementacion-de-un-Analizador-Lexico.pdf)
