@@ -75,3 +75,6 @@ Debería mostrarte la versión instalada de Python.
 
 ## Bibliografía
 [1] Juan Vázquez. *Enseñanzas de la Implementación de un Analizador Léxico*. Disponible en: [https://www.researchgate.net/...](https://www.researchgate.net/profile/Juan-Vazquez-3/publication/302941976_Ensenanzas_de_la_Implementacion_de_un_Analizador_Lexico/links/5733db5308ae9f741b261a57/Ensenanzas-de-la-Implementacion-de-un-Analizador-Lexico.pdf)
+
+[2][VILAR TORRES, Juan Miguel. *Analizador léxico (versión del curso 2008-2009)*. 2009.](https://repositori.uji.es/xmlui/bitstream/handle/10234/5877/lexico.apun.pdf?sequence=1)
+
