@@ -37,6 +37,41 @@ Pascal a día de hoy sigue siendo uno de los lenguajes más claros en el uso del
 El propósito no es más que el acádemico, poner en práctica los temas vistos en clase y demostrar el dominio que se poseen de estos.
 
 ## Instrucciones de instalación y ejecución
+Instalación de Python
+Descarga Python:
+
+- Ve al sitio oficial de Python: [Python](python.org)
+
+Descarga la última versión compatible con tu sistema operativo (Windows, macOS o Linux).
+
+- Instala Python:
+  
+En Windows, asegúrate de marcar la opción "Add Python to PATH" durante la instalación.
+
+Sigue las instrucciones del instalador.
+
+En Mac, Usa el gestor de paquetes Homebrew (si no tienes Homebrew instalado, sigue las instrucciones en brew.sh)
+
+En la mayoría de las distribuciones de Linux, Python ya está instalado. Si no es el caso, puedes instalarlo usando el gestor de paquetes adecuado según tu distribución.
+
+Para Ubuntu:
+
+```` markdown
+sudo apt update
+sudo apt install python3
+````
+
+Para fedora:
+
+`sudo dnf install python3`
+
+- Verifica la instalación:
+
+Abre una terminal o consola (Command Prompt en Windows, Terminal en macOS/Linux).
+
+Escribe python --version o python3 --version y presiona Enter.
+
+Debería mostrarte la versión instalada de Python.
 
 ## Bibliografía
 [1] Juan Vázquez. *Enseñanzas de la Implementación de un Analizador Léxico*. Disponible en: [https://www.researchgate.net/...](https://www.researchgate.net/profile/Juan-Vazquez-3/publication/302941976_Ensenanzas_de_la_Implementacion_de_un_Analizador_Lexico/links/5733db5308ae9f741b261a57/Ensenanzas-de-la-Implementacion-de-un-Analizador-Lexico.pdf)
