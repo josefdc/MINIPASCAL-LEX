@@ -6,8 +6,8 @@ Este documento contiene información sobre el archivo lexer.py
 - [Manual](#manual)
   - [Tabla de Contenidos](#tabla-de-contenidos)
   - [Información sobre los tokens](#información-sobre-los-tokens)
-  - [Ejemplos de entradas y salidas](#ejemplos-de-entradas-y-salidas)
-  - [Casos de prueba](#casos-de-prueba)
+  - [Ejemplos de entradas](#ejemplos-de-entradas)
+
 
 ## Información sobre los tokens
 Con este proyecto se trabajan cuatro tipos de tokens.
@@ -20,6 +20,16 @@ Con este proyecto se trabajan cuatro tipos de tokens.
 
 - Otros: Se usa como apartado de símbolos que no entran en ninguna de las categorias anteriores.
 
-## Ejemplos de entradas y salidas
+## Ejemplos de entradas
+Una posible entrada es la siguiente:
 
-## Casos de prueba
+````
+program Example1;
+var
+  x, y: integer;
+begin
+  x := 10;
+  y := x + 20;
+  writeln(y);
+end.
+````
