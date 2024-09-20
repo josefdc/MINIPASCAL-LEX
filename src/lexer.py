@@ -322,6 +322,11 @@ def t_XOR(t):
     return t
 
 # Números
+def t_INVALID_ID(t):
+    r'\d+[a-zA-Z_][a-zA-Z0-9_]*'
+    print(f"Error léxico: Identificador inválido '{t.value}' en la línea {t.lineno}")
+    t.lexer.skip(len(t.value))
+    
 def t_REAL_CONST(t):
     r'\d+\.\d+'
     t.value = float(t.value)
@@ -333,6 +338,9 @@ def t_INTEGER_CONST(t):
     return t
 
 # Identificadores
+
+
+
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value.lower(), 'ID') # Se verifica si es una palabra reservada dentro del diccionario
@@ -383,7 +391,7 @@ if __name__ == '__main__':
         fin = sys.argv[1]
     else:
         
-        fin = 'examples/example3.pas'
+        fin = 'examples/example4.pas'
     try:
         with open(fin, 'r') as f:
             data = f.read()
