@@ -69,7 +69,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'OF', 'REAL',
+    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'OF', 'REAL', 'BOOLEAN',
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
