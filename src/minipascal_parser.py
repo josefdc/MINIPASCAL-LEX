@@ -5,6 +5,18 @@ import sys
 
 VERBOSE = 1 # 1 para imprimir errores, 0 para no imprimir errores
 
+# Reglas de precedencia
+precedence = (
+    ('right', 'ASSIGN'),
+    ('left', 'OR', 'XOR'),
+    ('left', 'AND'),
+    ('nonassoc', 'EQUAL', 'NEQUAL', 'LT', 'LE', 'GT', 'GE'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO'),
+    ('right', 'NOT'),
+    ('left', 'LPAREN', 'RPAREN'),
+)
+
 # Reglas para el programa principal
 def p_program(p):
     'program : PROGRAM ID SEMICOLON block DOT'
@@ -12,28 +24,33 @@ def p_program(p):
 
 # Reglas para el bloque
 def p_block(p):
-    'block : declarations BEGIN statement_list END'
+    'block : declarations compound_statement'
     pass
 
 # Reglas para las declaraciones
 def p_declarations(p):
-    '''declarations : declarations declaration
+    '''declarations : declaration_list
                     | empty'''
+    pass
+
+def p_declaration_list(p):
+    '''declaration_list : declaration_list declaration
+                        | declaration'''
     pass
 
 def p_declaration(p):
     '''declaration : var_declaration
                    | const_declaration
-                   | procedure_declaration
-                   | type_declaration'''
+                   | type_declaration
+                   | procedure_declaration'''
     pass
 
 def p_var_declaration(p):
-    'var_declaration : VAR var_decl_list SEMICOLON'
+    'var_declaration : VAR var_declaration_list'
     pass
 
-def p_var_decl_list(p):
-    '''var_decl_list : var_decl_list var_decl
+def p_var_declaration_list(p):
+    '''var_declaration_list : var_declaration_list var_decl
                 | var_decl'''
     pass
 
@@ -47,20 +64,20 @@ def p_id_list(p):
     pass
 
 def p_const_declaration(p):
-    'const_declaration : CONST const_list SEMICOLON'
+    'const_declaration : CONST const_list'
     pass
 
 def p_const_list(p):
-    '''const_list : const_list COMMA ID EQUAL constant
-                  | ID EQUAL constant'''
+    '''const_list : const_list const_definition SEMICOLON
+                  | const_definition SEMICOLON'''
+    pass
+
+def p_const_definition(p):
+    'const_definition : ID EQUAL constant'
     pass
 
 def p_procedure_declaration(p):
     'procedure_declaration : PROCEDURE ID LPAREN param_list RPAREN SEMICOLON block'
-    pass
-
-def p_type_declaration(p):
-    'type_declaration : TYPE ID EQUAL type SEMICOLON'
     pass
 
 def p_param_list(p):
@@ -74,45 +91,119 @@ def p_param(p):
     pass
 
 # Reglas para las declaraciones de tipo
+def p_type_declaration(p):
+    'type_declaration : TYPE type_list'
+    pass
+
+def p_type_list(p):
+    '''type_list : type_list type_definition SEMICOLON
+                 | type_definition SEMICOLON'''
+    pass
+
+def p_type_definition(p):
+    'type_definition : ID EQUAL type'
+    pass
+
+
 def p_type(p):
-    '''type : INTEGER
-            | REAL
-            | BOOLEAN
-            | STRING
-            | ARRAY LBRACKET INTEGER_CONST RBRACKET OF type
-            | RECORD record_fields END
-            | SET LBRACKET type RBRACKET'''
+    '''type : simple_type
+            | array_type
+            | record_type'''
+    pass
+
+def p_simple_type(p):
+    '''simple_type : subrange_type
+                   | type_identifier'''
+    pass
+
+def p_subrange_type(p):
+    'subrange_type : constant DOTDOT constant'
+    pass
+
+def p_array_type(p):
+    'array_type : ARRAY LBRACKET index_type RBRACKET OF type'
+    pass
+
+def p_index_type(p):
+    '''index_type : simple_type'''
+    pass
+
+def p_record_type(p):
+    'record_type : RECORD record_fields END'
     pass
 
 def p_record_fields(p):
-    '''record_fields : record_fields var_declaration
-                     | var_declaration'''
+    '''record_fields : field_list'''
     pass
 
-# Reglas para la lista de sentencias
-def p_statement_list(p):
-    '''statement_list : statement_list statement
-                      | statement'''
+def p_field_list(p):
+    '''field_list : field_list field_declaration SEMICOLON
+                  | field_declaration SEMICOLON'''
     pass
+     
+def p_field_declaration(p):
+    'field_declaration : id_list COLON type'
+    pass
+
+def p_type_identifier(p):
+    '''type_identifier : ID
+                       | predefined_type'''
+    pass
+
+
+def p_predefined_type(p):
+    '''predefined_type : INTEGER
+                       | REAL
+                       | BOOLEAN
+                       | STRING'''
 
 # Reglas para las sentencias
+def p_compound_statement(p):
+    'compound_statement : BEGIN statement_list END'
+    pass
+
+def p_statement_list(p):
+    '''statement_list : statement
+                      | statement_list SEMICOLON statement'''
+    pass
+
 def p_statement(p):
-    '''statement : assignment_statement
-                 | if_statement
-                 | while_statement
-                 | repeat_statement
-                 | for_statement
-                 | procedure_call
-                 | record_assignment
-                 | empty'''
+    '''statement : simple_statement
+                 | structured_statement'''
+    pass
+
+def p_simple_statement(p):
+    '''simple_statement : assignment_statement
+                        | procedure_call_statement
+                        | empty'''
+    pass
+
+def p_structured_statement(p):
+    '''structured_statement : compound_statement
+                            | if_statement
+                            | while_statement
+                            | repeat_statement
+                            | for_statement
+                            | record_assignment'''
     pass
 
 def p_assignment_statement(p):
-    'assignment_statement : ID ASSIGN expression SEMICOLON'
+    'assignment_statement : variable ASSIGN expression'
+    pass
+
+def p_variable(p):
+    '''variable : ID
+                | variable DOT ID
+                | variable LBRACKET expression_list RBRACKET'''
+    pass
+
+def p_expression_list(p):
+    '''expression_list : expression
+                       | expression_list COMMA expression'''
     pass
 
 def p_record_assignment(p):
-    'record_assignment : ID DOT ID ASSIGN expression SEMICOLON'
+    'record_assignment : ID DOT ID ASSIGN expression'
     pass
 
 def p_if_statement(p):
@@ -129,15 +220,21 @@ def p_while_statement(p):
     pass
 
 def p_repeat_statement(p):
-    'repeat_statement : REPEAT statement_list UNTIL expression SEMICOLON'
+    'repeat_statement : REPEAT statement_list UNTIL expression'
     pass
 
 def p_for_statement(p):
-    'for_statement : FOR ID ASSIGN expression TO expression DO statement'
+    '''for_statement : FOR ID ASSIGN expression TO expression DO statement
+                     | FOR ID ASSIGN expression DOWNTO expression DO statement'''
+    pass
+
+def p_procedure_call_statement(p):
+    'procedure_call_statement : procedure_call'
     pass
 
 def p_procedure_call(p):
-    'procedure_call : ID LPAREN args RPAREN SEMICOLON'
+    '''procedure_call : ID LPAREN args RPAREN
+                      | ID'''
     pass
 
 def p_args(p):
@@ -146,8 +243,10 @@ def p_args(p):
             | empty'''
     pass
 
+
 # Reglas para las expresiones
-def p_expression_binop(p):
+# En el operador unario NOT, se utiliza %prec para asignar la precedencia correcta
+def p_expression(p):
     '''expression : expression PLUS expression
                   | expression MINUS expression
                   | expression TIMES expression
@@ -162,25 +261,35 @@ def p_expression_binop(p):
                   | expression GE expression
                   | expression AND expression
                   | expression OR expression
-                  | expression XOR expression'''
-    pass
-
-def p_expression_group(p):
-    'expression : LPAREN expression RPAREN'
-    pass
-
-def p_expression_literal(p):
-    '''expression : INTEGER_CONST
+                  | expression XOR expression
+                  | NOT expression %prec NOT
+                  | LPAREN expression RPAREN
+                  | variable
+                  | INTEGER_CONST
                   | REAL_CONST
-                  | STRING_LITERAL
-                  | ID'''
+                  | STRING_LITERAL'''
     pass
 
+# Reglas para las declaraciones de constantes
 def p_constant(p):
-    '''constant : INTEGER_CONST
-                | REAL_CONST
+    '''constant : UNSIGNED_NUMBER
+                | sign UNSIGNED_NUMBER
                 | STRING_LITERAL
-                | NIL'''
+                | constant_identifier'''
+    pass
+
+def p_unsigned_number(p):
+    '''UNSIGNED_NUMBER : INTEGER_CONST
+                       | REAL_CONST'''
+    pass
+
+def p_sign(p):
+    '''sign : PLUS
+            | MINUS'''
+    pass
+
+def p_constant_identifier(p):
+    'constant_identifier : ID'
     pass
 
 # Regla para vacío
@@ -204,7 +313,7 @@ if __name__ == '__main__':
           
 		fin = sys.argv[1]
 	else:
-		fin = '/workspaces/MINIPASCAL-LEX/examples/example2.pas'
+		fin = '/workspaces/MINIPASCAL-LEX/examples/example4.pas'
 
 	f = open(fin, 'r')
 	data = f.read()

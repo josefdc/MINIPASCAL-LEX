@@ -55,11 +55,9 @@ reserved = {
     'var': 'VAR',
     'while': 'WHILE',
     'xor': 'XOR',
-    'integer': 'INTEGER',
     'div': 'DIV',
     'mod': 'MOD',
     'of' : 'OF',
-    'real': 'REAL', 
 }
 
 # Lista de tokens
@@ -149,7 +147,14 @@ def t_IF(t):
 
 def t_INTEGER(t):  
     r'integer'
-    t.type = 'INTEGER'
+    return t
+
+def t_REAL(t):
+    r'real'
+    return t
+
+def t_BOOLEAN(t):
+    r'boolean'
     return t
 
 def t_IN(t):
