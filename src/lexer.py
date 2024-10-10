@@ -4,105 +4,110 @@ import sys
 # Diccionario de palabras reservadas para evitar conflictos con identificadores
 reserved = {
     'absolute': 'ABSOLUTE',
-    'array': 'ARRAY',
-    'begin': 'BEGIN',
-    'const': 'CONST',
-    'destructor': 'DESTRUCTOR',
-    'downto': 'DOWNTO',
-    'end': 'END',
-    'for': 'FOR',
-    'function': 'FUNCTION',
-    'if': 'IF',
-    'in': 'IN',
-    'interface': 'INTERFACE',
-    'label': 'LABEL',
-    'nil': 'NIL',
-    'object': 'OBJECT',
-    'or': 'OR',
-    'private': 'PRIVATE',
-    'program': 'PROGRAM',
-    'repeat': 'REPEAT',
-    'shl': 'SHL',
-    'string': 'STRING',
-    'to': 'TO',
-    'unit': 'UNIT',
-    'uses': 'USES',
-    'virtual': 'VIRTUAL',
-    'with': 'WITH',
     'and': 'AND',
+    'array': 'ARRAY',
     'asm': 'ASM',
+    'begin': 'BEGIN',
+    'boolean': 'BOOLEAN',
     'case': 'CASE',
+    'const': 'CONST',
     'constructor': 'CONSTRUCTOR',
-    'external': 'EXTERNAL',
+    'destructor': 'DESTRUCTOR',
+    'div': 'DIV',
     'do': 'DO',
+    'downto': 'DOWNTO',
     'else': 'ELSE',
+    'end': 'END',
+    'external': 'EXTERNAL',
     'file': 'FILE',
+    'for': 'FOR',
     'forward': 'FORWARD',
+    'function': 'FUNCTION',
     'goto': 'GOTO',
+    'if': 'IF',
     'implementation': 'IMPLEMENTATION',
+    'in': 'IN',
     'inline': 'INLINE',
+    'interface': 'INTERFACE',
     'interrupt': 'INTERRUPT',
+    'label': 'LABEL',
+    'mod': 'MOD',
+    'nil': 'NIL',
     'not': 'NOT',
-    'off': 'OFF',
+    'object': 'OBJECT',
+    'of': 'OF',
+    'or': 'OR',
     'packed': 'PACKED',
     'procedure': 'PROCEDURE',
+    'program': 'PROGRAM',
     'record': 'RECORD',
+    'repeat': 'REPEAT',
     'set': 'SET',
+    'shl': 'SHL',
     'shr': 'SHR',
+    'string': 'STRING',
     'then': 'THEN',
+    'to': 'TO',
     'type': 'TYPE',
+    'unit': 'UNIT',
     'until': 'UNTIL',
+    'uses': 'USES',
     'var': 'VAR',
+    'virtual': 'VIRTUAL',
     'while': 'WHILE',
+    'with': 'WITH',
     'xor': 'XOR',
+<<<<<<< HEAD
     'div': 'DIV',
     'mod': 'MOD',
     'of' : 'OF',
+=======
+    'integer': 'INTEGER',
+    'real': 'REAL',
+>>>>>>> 14556444e3c4ee12d7c495af0295ceffdc1eaa8d
 }
 
 # Lista de tokens
-tokens = (
-    # Reserved words
-    'ABSOLUTE', 'ARRAY', 'BEGIN', 'CONST', 'DESTRUCTOR', 'DOWNTO', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 'INTERFACE',
-    'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
-    'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
-    'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'OF', 'REAL', 'BOOLEAN',
+tokens = [
+    # Operadores
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL',
+    'LT', 'GT', 'LE', 'GE', 'ASSIGN',
 
-    # Operators
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
+    # Delimitadores
+    'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
+    'SEMICOLON', 'COMMA', 'COLON', 'DOT', 'DOTDOT',
 
-    # Delimiters
-    'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'SEMICOLON', 'COMMA', 'COLON', 'DOT', 'DOTDOT',
-
-    # Others   
+    # Otros
     'ID', 'INTEGER_CONST', 'REAL_CONST', 'STRING_LITERAL',
-)
+] + list(reserved.values())
 
-# Reglas de expresiones regulares para tokens simples (Operadores)
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
-t_EQUAL = r'='
-t_NEQUAL = r'<>'
-t_LT = r'<'
-t_GT = r'>'
-t_LE = r'<='
-t_GE = r'>='
-t_ASSIGN = r':='
+# Reglas de expresiones regulares para tokens simples
+t_PLUS       = r'\+'
+t_MINUS      = r'-'
+t_TIMES      = r'\*'
+t_DIVIDE     = r'/'
+t_DIVIDE_INT = r'div'
+t_MODULO     = r'mod'
+t_EQUAL      = r'='
+t_NEQUAL     = r'<>'
+t_LT         = r'<'
+t_GT         = r'>'
+t_LE         = r'<='
+t_GE         = r'>='
+t_ASSIGN     = r':='
 
-# Delimiters
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_LBRACKET = r'\['
-t_RBRACKET = r'\]'
-t_SEMICOLON = r';'
-t_COMMA = r','
-t_COLON = r':'
-t_DOT = r'\.'
-t_DOTDOT = r'\.\.'
+# Delimitadores
+t_LPAREN     = r'\('
+t_RPAREN     = r'\)'
+t_LBRACKET   = r'\['
+t_RBRACKET   = r'\]'
+t_SEMICOLON  = r';'
+t_COMMA      = r','
+t_COLON      = r':'
+t_DOT        = r'\.'
+t_DOTDOT     = r'\.\.'
 
+<<<<<<< HEAD
 # Regular expression rules for complex tokens
 
 def t_ABSOLUTE(t):
@@ -324,11 +329,17 @@ def t_WHILE(t):
 
 def t_XOR(t):
     r'xor'
+=======
+# Identificadores y palabras reservadas
+def t_ID(t):
+    r'[A-Za-z_][A-Za-z0-9_]*'
+    t.type = reserved.get(t.value.lower(), 'ID')  # Verifica si es una palabra reservada
+>>>>>>> 14556444e3c4ee12d7c495af0295ceffdc1eaa8d
     return t
 
 # Números
 def t_REAL_CONST(t):
-    r'\d+\.\d+'
+    r'\d+\.\d+([eE][+-]?\d+)?'
     t.value = float(t.value)
     return t
 
@@ -337,42 +348,33 @@ def t_INTEGER_CONST(t):
     t.value = int(t.value)
     return t
 
-# Identificadores
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value.lower(), 'ID') # Se verifica si es una palabra reservada dentro del diccionario
-    return t
-
 # Literales de cadena
 def t_STRING_LITERAL(t):
     r'\'([^\\\n]|(\\.))*?\''
     t.value = t.value[1:-1]  # Remueve las comillas
     return t
 
-# Comentarios { ... }
+# Comentarios { ... } y (* ... *)
 def t_COMMENT(t):
-    r'\{[^}]*\}'
-    pass
-
-# Comentarios (* ... *)
-def t_COMMENT_MULTILINE(t):  # Cambiado de T a t (minúscula)
-    r'\(\*(.|\n)*?\*\)'
-    pass
+    r'\{[^}]*\}|\(\*([^*]|\*+[^*)])*\*+\)'
+    pass  # Ignorar comentarios
 
 # Nueva línea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-    
-# Espacios y tabulaciones que se ignoran
+
+# Caracteres ignorados (espacios y tabulaciones)
 t_ignore = ' \t'
 
 # Manejo de errores léxicos
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}' at line {t.lexer.lineno}")
+    print(f"Caracter ilegal '{t.value[0]}' en la línea {t.lineno}")
     t.lexer.skip(1)
-    
 
+lexer = lex.lex()
+
+# Función de prueba del lexer (opcional)
 def test(data, lexer):
     lexer.input(data)
     while True:
@@ -381,19 +383,17 @@ def test(data, lexer):
             break
         print(tok)
 
-lexer = lex.lex()
-
+# Código para ejecutar el lexer (opcional)
 if __name__ == '__main__':
-    if (len(sys.argv) > 1):
+    if len(sys.argv) > 1:
         fin = sys.argv[1]
     else:
-        
-        fin = 'examples/example3.pas'
+        fin = '../examples/example2.pas'  # Ruta al archivo de ejemplo
     try:
         with open(fin, 'r') as f:
             data = f.read()
-            print(data)
             lexer.input(data)
-            test(data, lexer)
+            for tok in lexer:
+                print(tok)
     except FileNotFoundError:
         print(f"Error: El archivo '{fin}' no existe.")
