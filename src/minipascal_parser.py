@@ -10,16 +10,32 @@ precedence = (
     ('right', 'ASSIGN'),
     ('left', 'OR', 'XOR'),
     ('left', 'AND'),
+    ('left', 'SHL', 'SHR'),
     ('nonassoc', 'EQUAL', 'NEQUAL', 'LT', 'LE', 'GT', 'GE'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO'),
-    ('right', 'NOT'),
     ('left', 'LPAREN', 'RPAREN'),
+    ('right', 'NOT'),
 )
 
 # Reglas para el programa principal
 def p_program(p):
-    'program : PROGRAM ID SEMICOLON block DOT'
+    'program : PROGRAM ID SEMICOLON uses_clause_opt block DOT'
+    pass
+
+def p_uses_clause_opt(p):
+    '''uses_clause_opt : uses_clause
+                       | empty'''
+    pass
+
+
+def p_unit_list(p):
+    '''unit_list : unit_list COMMA ID
+                 | ID'''
+    pass
+
+def p_uses_clause(p):
+    'uses_clause : USES unit_list SEMICOLON'
     pass
 
 # Reglas para el bloque
@@ -42,7 +58,8 @@ def p_declaration(p):
     '''declaration : var_declaration
                    | const_declaration
                    | type_declaration
-                   | procedure_declaration'''
+                   | procedure_declaration
+                   | function_declaration'''
     pass
 
 def p_var_declaration(p):
@@ -77,17 +94,25 @@ def p_const_definition(p):
     pass
 
 def p_procedure_declaration(p):
-    'procedure_declaration : PROCEDURE ID LPAREN param_list RPAREN SEMICOLON block'
+    'procedure_declaration : PROCEDURE ID  formal_parameter_list_opt SEMICOLON block SEMICOLON'
     pass
 
-def p_param_list(p):
-    '''param_list : param_list SEMICOLON param
-                  | param
-                  | empty'''
+def p_function_declaration(p):
+    'function_declaration : FUNCTION ID formal_parameter_list_opt COLON type SEMICOLON block SEMICOLON'
     pass
 
-def p_param(p):
-    'param : ID COLON type'
+def p_formal_parameter_list_opt(p):
+    '''formal_parameter_list_opt : LPAREN formal_parameter_list RPAREN
+                             | empty'''
+    pass
+
+def p_formal_parameter_list(p):
+    '''formal_parameter_list : formal_parameter_list SEMICOLON formal_parameter
+                             | formal_parameter'''
+    pass
+
+def p_formal_parameter(p):
+    'formal_parameter : id_list COLON type'
     pass
 
 # Reglas para las declaraciones de tipo
@@ -150,12 +175,12 @@ def p_type_identifier(p):
                        | predefined_type'''
     pass
 
-
 def p_predefined_type(p):
     '''predefined_type : INTEGER
                        | REAL
                        | BOOLEAN
                        | STRING'''
+    pass
 
 # Reglas para las sentencias
 def p_compound_statement(p):
@@ -178,15 +203,6 @@ def p_simple_statement(p):
                         | empty'''
     pass
 
-def p_structured_statement(p):
-    '''structured_statement : compound_statement
-                            | if_statement
-                            | while_statement
-                            | repeat_statement
-                            | for_statement
-                            | record_assignment'''
-    pass
-
 def p_assignment_statement(p):
     'assignment_statement : variable ASSIGN expression'
     pass
@@ -202,8 +218,27 @@ def p_expression_list(p):
                        | expression_list COMMA expression'''
     pass
 
-def p_record_assignment(p):
-    'record_assignment : ID DOT ID ASSIGN expression'
+def p_procedure_call_statement(p):
+    'procedure_call_statement : procedure_call'
+    pass
+
+def p_procedure_call(p):
+    '''procedure_call : ID LPAREN args_optional RPAREN'''
+    pass
+
+def p_args(p):
+    '''args : args COMMA expression
+            | expression'''
+    pass
+
+def p_structured_statement(p):
+    '''structured_statement : compound_statement
+                            | if_statement
+                            | while_statement
+                            | repeat_statement
+                            | for_statement
+                            | case_statement
+                            | record_assignment'''
     pass
 
 def p_if_statement(p):
@@ -228,21 +263,41 @@ def p_for_statement(p):
                      | FOR ID ASSIGN expression DOWNTO expression DO statement'''
     pass
 
-def p_procedure_call_statement(p):
-    'procedure_call_statement : procedure_call'
+def p_case_statement(p):
+    'case_statement : CASE expression OF case_element_list else_clause_optional END'
     pass
 
-def p_procedure_call(p):
-    '''procedure_call : ID LPAREN args RPAREN
-                      | ID'''
+def p_case_element_list(p):
+    '''case_element_list : case_element_list semicolon_optional case_element
+                         | case_element'''
     pass
 
-def p_args(p):
-    '''args : args COMMA expression
-            | expression
-            | empty'''
+def p_case_element(p):
+    'case_element : case_label_list COLON statement'
     pass
 
+def p_case_label_list(p):
+    '''case_label_list : case_label_list COMMA case_label
+                       | case_label'''
+    pass
+
+def p_case_label(p):
+    'case_label : constant'
+    pass
+
+def p_else_clause_optional(p):
+    '''else_clause_optional : semicolon_optional ELSE statement semicolon_optional
+                            | empty'''
+    pass
+
+def p_semicolon_optional(p):
+    '''semicolon_optional : SEMICOLON
+                          | empty'''
+    pass
+
+def p_record_assignment(p):
+    'record_assignment : ID DOT ID ASSIGN expression'
+    pass
 
 # Reglas para las expresiones
 # En el operador unario NOT, se utiliza %prec para asignar la precedencia correcta
@@ -253,6 +308,8 @@ def p_expression(p):
                   | expression DIVIDE expression
                   | expression DIVIDE_INT expression
                   | expression MODULO expression
+                  | expression SHL expression
+                  | expression SHR expression
                   | expression EQUAL expression
                   | expression NEQUAL expression
                   | expression LT expression
@@ -264,10 +321,22 @@ def p_expression(p):
                   | expression XOR expression
                   | NOT expression %prec NOT
                   | LPAREN expression RPAREN
+                  | function_call
                   | variable
                   | INTEGER_CONST
                   | REAL_CONST
                   | STRING_LITERAL'''
+    pass
+
+
+def p_function_call(p):
+    'function_call : ID LPAREN args_optional RPAREN'
+    pass
+
+
+def p_args_opt(p):
+    '''args_optional : args
+                     | empty'''
     pass
 
 # Reglas para las declaraciones de constantes

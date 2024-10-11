@@ -56,6 +56,8 @@ reserved = {
     'while': 'WHILE',
     'xor': 'XOR',
     'of': 'OF',
+    'div': 'DIVIDE_INT',
+    'mod': 'MODULO',
 }
 
 # Lista de tokens
@@ -65,7 +67,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'REAL', 'BOOLEAN', 'OF',
+    'WHILE', 'XOR', 'INTEGER', 'REAL', 'BOOLEAN', 'OF',
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
