@@ -2,6 +2,7 @@ import ply.lex as lex
 import sys
 
 # Diccionario de palabras reservadas para evitar conflictos con identificadores
+
 reserved = {
     'absolute': 'ABSOLUTE',
     'array': 'ARRAY',
@@ -23,7 +24,6 @@ reserved = {
     'program': 'PROGRAM',
     'repeat': 'REPEAT',
     'shl': 'SHL',
-    'string': 'STRING',
     'to': 'TO',
     'unit': 'UNIT',
     'uses': 'USES',
@@ -55,11 +55,9 @@ reserved = {
     'var': 'VAR',
     'while': 'WHILE',
     'xor': 'XOR',
-    'integer': 'INTEGER',
-    'div': 'DIV',
-    'mod': 'MOD',
-    'of' : 'OF',
-    'real': 'REAL', 
+    'of': 'OF',
+    'div': 'DIVIDE_INT',
+    'mod': 'MODULO',
 }
 
 # Lista de tokens
@@ -69,7 +67,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 'DIV', 'MOD', 'OF', 'REAL',
+    'WHILE', 'XOR', 'INTEGER', 'REAL', 'BOOLEAN', 'OF',
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
@@ -86,6 +84,8 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
+t_DIVIDE_INT = r'div'  # Token para "div" (división entera)
+t_MODULO = r'mod'      # Token para "mod" (operador módulo)
 t_EQUAL = r'='
 t_NEQUAL = r'<>'
 t_LT = r'<'
@@ -102,8 +102,8 @@ t_RBRACKET = r'\]'
 t_SEMICOLON = r';'
 t_COMMA = r','
 t_COLON = r':'
-t_DOT = r'\.'
 t_DOTDOT = r'\.\.'
+t_DOT = r'\.'
 
 # Regular expression rules for complex tokens
 
@@ -149,7 +149,15 @@ def t_IF(t):
 
 def t_INTEGER(t):  
     r'integer'
-    t.type = 'INTEGER'
+    #t.type = 'INTEGER'
+    return t
+
+def t_REAL(t):
+    r'real'
+    return t
+
+def t_BOOLEAN(t):
+    r'boolean'
     return t
 
 def t_IN(t):
@@ -391,6 +399,7 @@ if __name__ == '__main__':
         fin = sys.argv[1]
     else:
         
+
         fin = 'examples/example4.pas'
     try:
         with open(fin, 'r') as f:
