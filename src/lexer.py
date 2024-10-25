@@ -21,6 +21,7 @@ reserved = {
     'object': 'OBJECT',
     'or': 'OR',
     'private': 'PRIVATE',
+    'class': 'CLASS',
     'program': 'PROGRAM',
     'repeat': 'REPEAT',
     'shl': 'SHL',
@@ -35,6 +36,8 @@ reserved = {
     'constructor': 'CONSTRUCTOR',
     'external': 'EXTERNAL',
     'do': 'DO',
+    'function': 'FUNCTION',
+    'procedure': 'PROCEDURE',
     'else': 'ELSE',
     'file': 'FILE',
     'forward': 'FORWARD',
@@ -67,7 +70,7 @@ tokens = (
     'LABEL', 'NIL', 'OBJECT', 'OR', 'PRIVATE', 'PROGRAM', 'REPEAT', 'SHL', 'STRING', 'TO', 'UNIT', 'USES', 'VIRTUAL',
     'WITH', 'AND', 'ASM', 'CASE', 'CONSTRUCTOR', 'EXTERNAL', 'DO', 'ELSE', 'FILE', 'FORWARD', 'GOTO', 'IMPLEMENTATION',
     'INLINE', 'INTERRUPT', 'NOT', 'OFF', 'PACKED', 'PROCEDURE', 'RECORD', 'SET', 'SHR', 'THEN', 'TYPE', 'UNTIL', 'VAR',
-    'WHILE', 'XOR', 'INTEGER', 'REAL', 'BOOLEAN', 'OF',
+    'WHILE', 'XOR', 'INTEGER', 'REAL', 'BOOLEAN', 'OF', 'CLASS', 'FUNCTION', 'PROCEDURE',
 
     # Operators
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'DIVIDE_INT', 'MODULO', 'EQUAL', 'NEQUAL', 'LT', 'GT', 'LE', 'GE', 'ASSIGN',
@@ -271,6 +274,10 @@ def t_IMPLEMENTATION(t):
 
 def t_INLINE(t):
     r'inline'
+    return t
+
+def t_CLASS(t):
+    r'class'
     return t
 
 def t_INTERRUPT(t):
