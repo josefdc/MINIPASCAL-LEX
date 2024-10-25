@@ -133,8 +133,52 @@ def p_type_definition(p):
 def p_type(p):
     '''type : simple_type
             | array_type
-            | record_type'''
+            | record_type
+            | class_type'''
     pass
+
+def p_class_type(p):
+    'class_type : CLASS class_body END'
+    pass
+
+def p_class_body(p):
+    '''class_body : class_member_list'''
+    pass
+
+def p_class_member_list(p):
+    '''class_member_list : class_member_list class_member
+                         | class_member'''
+    pass
+def p_class_member(p):
+    '''class_member : class_variable_declaration
+                    | constructor_declaration
+                    | class_function_declaration
+                    | class_procedure_declaration'''
+    pass
+
+def p_class_variable_declaration(p):
+    'class_variable_declaration : ID COLON type SEMICOLON'
+    pass
+
+def p_constructor_declaration(p):
+    'constructor_declaration : CONSTRUCTOR ID formal_parameter_list_opt SEMICOLON'
+    pass
+def p_class_function_declaration(p):
+    'class_function_declaration : FUNCTION ID formal_parameter_list_opt COLON type SEMICOLON'
+    pass
+def p_function_declaration(p):
+    'function_declaration : FUNCTION ID formal_parameter_list_opt COLON type SEMICOLON block SEMICOLON'
+    pass
+
+def p_procedure_declaration(p):
+    'procedure_declaration : PROCEDURE ID formal_parameter_list_opt SEMICOLON block SEMICOLON'
+    pass
+
+
+def p_class_procedure_declaration(p):
+    'class_procedure_declaration : PROCEDURE ID formal_parameter_list_opt SEMICOLON'
+    pass
+
 
 def p_simple_type(p):
     '''simple_type : subrange_type
